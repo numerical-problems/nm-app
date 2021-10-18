@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { Container } from './styles';
+import { menus } from '../../constants';
 
-function Header() {
+function Header({ id, icon,  }) {
+  const currentMenu = menus.find(menu => menu.id === id);
+
   return (
       <Container>
-          Header
+        {currentMenu.icon && currentMenu.icon}
+        <div className="title">{currentMenu.name}</div>
       </Container>
   );
 }

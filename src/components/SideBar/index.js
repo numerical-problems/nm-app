@@ -1,33 +1,26 @@
-import React from 'react';
+import React from "react";
+import history from "../../services/history";
+import { Container } from "./styles";
+import { menus } from '../../constants';
 
-import { Container } from './styles';
-import { RiNumbersLine } from 'react-icons/ri';
-
-const menus = [
-    {
-        name: 'Logaritmos',
-        icon: <RiNumbersLine size="18" />,
-    }
-]
-
-function SideBar() {
+function SideBar({ active }) {
   return (
-      <Container>
-          <div className="title">Métodos numéricos</div>
+    <Container>
+      <div className="title">Métodos numéricos</div>
 
-          <div className="sidebar-items">
-              {
-                  menus.map((item, index) => (
-                      <div key={index} className="sidebar-item">
-                        <div className="icon">{item.icon}</div>
-                        <div className="text">
-                            {item.name}
-                        </div>
-                      </div>
-                  ))
-              }
+      <div className="sidebar-items">
+        {menus?.map((item, index) => (
+          <div
+            key={index}
+            className={`sidebar-item ${item.id === active ? "active" : ""}`}
+            onClick={() => history.push(item.path)}
+          >
+            <div className="icon">{item.icon}</div>
+            <div className="text">{item.name}</div>
           </div>
-      </Container>
+        ))}
+      </div>
+    </Container>
   );
 }
 

@@ -1,16 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import { Container } from './styles';
-import SideBar from '../../components/SideBar';
+import { Container } from "../../layout/container";
+import Page from "../../layout/page";
 
 function Home() {
+  console.log('aqui')
   return (
-    <>
-      <SideBar />
+    <Page id="home">
       <Container>
-        <h1>IFC Videira - Métodos numéricos 2021.2</h1>
+        <div className="left">
+          <h3>IFC - Métodos numéricos</h3>
+          <p>Esse site PWA foi motivado ...</p>
+        </div>
+        <div className="right">
+          <h4>right</h4>
+        </div>
       </Container>
-     </>
+    </Page>
   );
 }
 
