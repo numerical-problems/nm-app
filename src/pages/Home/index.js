@@ -4,7 +4,6 @@ import { Container } from "../../layout/container";
 import Page from "../../layout/page";
 
 function Home() {
-  console.log('aqui')
   return (
     <Page id="home">
       <Container>
