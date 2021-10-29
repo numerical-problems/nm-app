@@ -5,7 +5,7 @@ import Button from '../../components/Button'
 import Page from "../../layout/page";
 import { Form } from './styles'
 
-function Home() {
+export default function Fourier() {
   const [state, setState] = useState({
     expression: '',
     result: '',
@@ -67,5 +67,3 @@ function Home() {
     </Page>
   );
 }
-
-export default Home;
