@@ -24,4 +24,10 @@ export const menus = [
   //   icon: <RiGridLine size="18" />,
   //   path: "/algbl",
   // },
+  {
+    id: "fourier",
+    name: "Fourier",
+    icon: <RiNumbersLine size='18' />,
+    path: "/fourier",
+  }
 ];
