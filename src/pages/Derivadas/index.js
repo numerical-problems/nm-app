@@ -7,7 +7,7 @@ function Derivadas() {
   return (
     <Page id='derivadas'>
       <Container>
-        <C.Title className='title'>Derivadas</C.Title>
+        <C.Title>Derivadas</C.Title>
       </Container>
     </Page>
   );
