@@ -35,10 +35,8 @@ function Derivadas() {
 
   const handleDerivation = async (e) => {
     e.preventDefault();
-    const { expression, related_to, times } = state;
-    if (times === "" && related_to !== "" && expression !== "") {
-      setState((old) => ({ ...old, times: 1, isLoading: false }));
-    }
+    const { expression, related_to } = state;
+    const times = state.times ? state.times : 1;
     const url = `http://localhost:5000/derivate`;
     const response = await fetch(url, {
       method: "POST",
