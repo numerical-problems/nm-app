@@ -109,11 +109,11 @@ function Derivadas() {
           <C.List>
             <C.ListItem>
               As expressões devem ser escritas desta maneira:
-              2*x**5-2*x**3+5-3*x
+              <span>2*x**5-2*x**3</span>
             </C.ListItem>
             <C.ListItem>
               Para elevar um número a uma potência, deve-se utilizar o símbolo:
-              **, por exemplo: 3**3
+              **, por exemplo: <span>3**3</span>
             </C.ListItem>
             <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
