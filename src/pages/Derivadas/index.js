@@ -35,6 +35,11 @@ function Derivadas() {
 
   const handleDerivation = async (e) => {
     e.preventDefault();
+    setState((old) => ({
+      ...old,
+      isLoading: true,
+      error: "",
+    }));
     const { expression, related_to } = state;
     const times = state.times ? state.times : 1;
     const url = `http://localhost:5000/derivate`;
@@ -109,13 +114,19 @@ function Derivadas() {
               As expressões devem ser escritas desta maneira:
               <span>2*x**5-2*x**3</span>
             </C.ListItem>
-            <C.ListItem>
+            {/* <C.ListItem>
               Para elevar um número a uma potência, deve-se utilizar o símbolo:
               **, por exemplo: <span>3**3</span>
-            </C.ListItem>
+            </C.ListItem> */}
             <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
               realizada 1 derivação
+            </C.ListItem>
+            <h4>Operadores:</h4>
+            <C.ListItem>*: Multiplicação</C.ListItem>
+            <C.ListItem>/: Divisão</C.ListItem>
+            <C.ListItem>
+              **:Potência,por exemplo:<span>3**3</span> para 3 elevado ao cubo
             </C.ListItem>
           </C.List>
         </div>
