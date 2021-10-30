@@ -16,6 +16,9 @@ export const ListItem = styled.li`
   padding-bottom: 10px;
   font-weight: 300;
   border-bottom: 1px solid #000000;
+  span {
+    font-weight: bold;
+  }
 `;
 
 export const Result = styled.p`

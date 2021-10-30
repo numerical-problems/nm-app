@@ -3,6 +3,7 @@ import { Container } from "../../layout/container";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
+import api from "../../services/api";
 import * as C from "./styles";
 
 function Derivadas() {
@@ -24,11 +25,9 @@ function Derivadas() {
 
   const handleDerivation = async (e) => {
     e.preventDefault();
-    setState((old) => ({ ...old, isLoading: true }));
-    const { expression, related_to, times } = state;
-    if (times === "" && related_to !== "" && expression !== "") {
-      setState((old) => ({ ...old, times: 1, isLoading: false }));
-    }
+    setState((old) => ({ ...old, isLoading: true, error: "" }));
+    const { expression, related_to } = state;
+    const times = state.times ? state.times : 1;
     const url = `http://localhost:5000/derivate`;
     const response = await fetch(url, {
       method: "POST",
@@ -43,14 +42,54 @@ function Derivadas() {
       }),
     });
     const data = await response.json();
-    console.log(data);
+
+    if (data.message) {
+      setState((old) => ({
+        ...old,
+        error: data.message,
+        isLoading: false,
+      }));
+    }
+
     setState((old) => ({
       ...old,
       result: data.result,
-      error: data.message,
       isLoading: false,
     }));
   };
+
+  //TODO:CORRIGIR ERROS UTILIZANDO O AXIOS
+  // const handleDerivation = async (e) => {
+  //   e.preventDefault();
+  //   setState((old) => ({ ...old, isLoading: true, error: "" }));
+  //   try {
+  //     const { data } = await api.post(`/derivate`, {
+  //       expression: state.expression,
+  //       related_to: state.related_to,
+  //       times: state.times,
+  //     });
+  //     setState((old) => ({
+  //       ...old,
+  //       result: data.result,
+  //       error: data.error,
+  //       isLoading: false,
+  //     }));
+  //     if (data.message) {
+  //       setState((old) => ({
+  //         ...old,
+  //         error: data.message,
+  //         isLoading: false,
+  //       }));
+  //     }
+  //     return data;
+  //   } catch (error) {
+  //     setState((old) => ({
+  //       ...old,
+  //       error: state.error,
+  //       isLoading: false,
+  //     }));
+  //   }
+  // };
 
   const clearInput = () => {
     setState((old) => ({
@@ -88,9 +127,14 @@ function Derivadas() {
               placeholder='Quantidade de derivações sucessivas(opcional)'
             />
             <Button type='submit' label='Calcular' />
-            <Button label='Limpar campos' onClick={clearInput} />
+            <Button type='' label='Limpar campos' onClick={clearInput} />
           </C.Form>
-          {state.error && <p>{state.error}</p>}
+          {state.error && (
+            <>
+              <h2>Ocorreu um erro</h2>
+              <C.Result>{state.error}</C.Result>
+            </>
+          )}
           {state.result && (
             <>
               <h2>Resultado</h2>
@@ -103,11 +147,11 @@ function Derivadas() {
           <C.List>
             <C.ListItem>
               As expressões devem ser escritas desta maneira:
-              2*x**5-2*x**3+5-3*x
+              <span>2*x**5-2*x**3</span>
             </C.ListItem>
             <C.ListItem>
               Para elevar um número a uma potência, deve-se utilizar o símbolo:
-              **, por exemplo: 3**3
+              **, por exemplo: <span>3**3</span>
             </C.ListItem>
             <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
