@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Title = styled.h1`
-  padding-left: 20px;
-  padding-top: 10px;
+  padding: 10px 20px;
 `;
 
 export const Form = styled.form``;
@@ -19,6 +18,5 @@ export const ListItem = styled.li`
 `;
 
 export const Result = styled.p`
-  font-size: 1.6rem;
   padding-top: 20px;
 `;

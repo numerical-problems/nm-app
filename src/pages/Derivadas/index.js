@@ -15,6 +15,17 @@ function Derivadas() {
     isLoading: false,
   });
 
+  const clearInput = () => {
+    setState((old) => ({
+      ...old,
+      expression: "",
+      related_to: "",
+      times: "",
+      result: "",
+      error: "",
+    }));
+  };
+
   const textChange = (field) => (e) => {
     setState((old) => ({
       ...old,
@@ -24,7 +35,6 @@ function Derivadas() {
 
   const handleDerivation = async (e) => {
     e.preventDefault();
-    setState((old) => ({ ...old, isLoading: true }));
     const { expression, related_to, times } = state;
     if (times === "" && related_to !== "" && expression !== "") {
       setState((old) => ({ ...old, times: 1, isLoading: false }));
@@ -43,23 +53,14 @@ function Derivadas() {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    if (data.message) {
+      setState((old) => ({ ...old, error: data.message, isLoading: false }));
+    }
+    console.log(state.error);
     setState((old) => ({
       ...old,
       result: data.result,
-      error: data.message,
       isLoading: false,
-    }));
-  };
-
-  const clearInput = () => {
-    setState((old) => ({
-      ...old,
-      expression: "",
-      related_to: "",
-      times: "",
-      result: "",
-      error: "",
     }));
   };
 
@@ -88,9 +89,14 @@ function Derivadas() {
               placeholder='Quantidade de derivações sucessivas(opcional)'
             />
             <Button type='submit' label='Calcular' />
-            <Button label='Limpar campos' onClick={clearInput} />
           </C.Form>
-          {state.error && <p>{state.error}</p>}
+          <Button label='Limpar campos' onClick={clearInput} />
+          {state.error !== "" && (
+            <C.Result>
+              <h3>Ocorreu um erro</h3>
+              <p>{state.error}</p>
+            </C.Result>
+          )}
           {state.result && (
             <>
               <h2>Resultado</h2>
