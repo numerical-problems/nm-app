@@ -26,7 +26,7 @@ function Derivadas() {
     e.preventDefault();
     setState((old) => ({ ...old, isLoading: true }));
     const { expression, related_to, times } = state;
-    if (times === "") {
+    if (times === "" && related_to !== "" && expression !== "") {
       setState((old) => ({ ...old, times: 1, isLoading: false }));
     }
     const url = `http://localhost:5000/derivate`;
@@ -49,6 +49,17 @@ function Derivadas() {
       result: data.result,
       error: data.message,
       isLoading: false,
+    }));
+  };
+
+  const clearInput = () => {
+    setState((old) => ({
+      ...old,
+      expression: "",
+      related_to: "",
+      times: "",
+      result: "",
+      error: "",
     }));
   };
 
@@ -77,6 +88,7 @@ function Derivadas() {
               placeholder='Quantidade de derivações sucessivas(opcional)'
             />
             <Button type='submit' label='Calcular' />
+            <Button label='Limpar campos' onClick={clearInput} />
           </C.Form>
           {state.error && <p>{state.error}</p>}
           {state.result && (
