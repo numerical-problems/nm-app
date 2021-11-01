@@ -41,7 +41,7 @@ function Derivadas() {
       error: "",
     }));
     const { expression, related_to } = state;
-    const times = state.times ? state.times : 1;
+    const times = state.times > 0 ? state.times : 1;
     const url = `http://localhost:5000/derivate`;
     const response = await fetch(url, {
       method: "POST",
@@ -114,10 +114,6 @@ function Derivadas() {
               As expressões devem ser escritas desta maneira:
               <span>2*x**5-2*x**3</span>
             </C.ListItem>
-            {/* <C.ListItem>
-              Para elevar um número a uma potência, deve-se utilizar o símbolo:
-              **, por exemplo: <span>3**3</span>
-            </C.ListItem> */}
             <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
               realizada 1 derivação
@@ -126,7 +122,10 @@ function Derivadas() {
             <C.ListItem>*: Multiplicação</C.ListItem>
             <C.ListItem>/: Divisão</C.ListItem>
             <C.ListItem>
-              **:Potência,por exemplo:<span>3**3</span> para 3 elevado ao cubo
+              **:Potência,por exemplo:<span>3**3</span> para 3 elevado ao cubo.
+              No <span>retorno</span> da resposta, a potência será representada
+              por:
+              <spa>^</spa>{" "}
             </C.ListItem>
           </C.List>
         </div>
