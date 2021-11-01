@@ -125,7 +125,7 @@ function Derivadas() {
               **:Potência,por exemplo:<span>3**3</span> para 3 elevado ao cubo.
               No <span>retorno</span> da resposta, a potência será representada
               por:
-              <spa>^</spa>{" "}
+              <span>^</span>
             </C.ListItem>
           </C.List>
         </div>
