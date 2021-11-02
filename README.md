@@ -17,6 +17,6 @@ Para instalar todas as dependências do projeto
 ## Run server
 
 ```shell
- yarn start
+ yarn start ou npm start
 ```
 
