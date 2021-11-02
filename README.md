@@ -8,7 +8,6 @@
 ```shell
  yarn 
 ```
-Para instalar todas as dependências do projeto
 
 - Também é possível utilizar o comando 
 ```shell
