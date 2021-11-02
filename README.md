@@ -14,7 +14,7 @@ Para instalar todas as dependências do projeto
 ```shell
  npm install
 ```
-## Run server
+## Iniciar o servidor
 
 ```shell
  yarn start ou npm start
