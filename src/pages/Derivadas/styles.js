@@ -27,3 +27,10 @@ export const Result = styled.p`
   font-size: 30px;
   padding-top: 20px;
 `;
+
+export const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 55px;
+`;

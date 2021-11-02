@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
 import * as C from "./styles";
+import ReactLoading from "react-loading";
 
 function Derivadas() {
   const [state, setState] = useState({
@@ -100,7 +101,12 @@ function Derivadas() {
               <p>{state.error}</p>
             </C.Result>
           )}
-          {state.result && (
+          {state.isLoading && (
+            <C.Loading>
+              <ReactLoading type='spin' color='black' />
+            </C.Loading>
+          )}
+          {state.result && !state.isLoading && (
             <>
               <h2>Resultado</h2>
               <C.Result>{state.result}</C.Result>
