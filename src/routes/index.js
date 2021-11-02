@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Logaritmos from "../pages/Logaritmos";
 import Derivadas from "../pages/Derivadas";
 import Fourier from "../pages/Fourier";
+import Interpolacao from "../pages/Interpolacao";
 import history from "../services/history";
 
 export default function Routes() {
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route path='/' exact component={Home} />
         <Route path='/derivadas' component={Derivadas} />
         <Route path='/fourier' component={Fourier} />
+        <Route path='/interpolation' component={Interpolacao} />
       </Switch>
     </Router>
   );
