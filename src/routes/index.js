@@ -15,7 +15,7 @@ export default function Routes() {
         <Route path='/' exact component={Home} />
         <Route path='/derivadas' component={Derivadas} />
         <Route path='/fourier' component={Fourier} />
-        <Route path='/interpolation' component={Interpolacao} />
+        <Route path='/interpolacao' component={Interpolacao} />
       </Switch>
     </Router>
   );
