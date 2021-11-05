@@ -7,6 +7,7 @@ import Page from "../../layout/page";
 import * as C from "./styles";
 import { useTextChange } from "../../hooks/useTextChange";
 import ReactLoading from "react-loading";
+import api from "../../services/api";
 
 function Derivadas() {
   const [state, setState] = useState({
@@ -39,19 +40,11 @@ function Derivadas() {
     }));
     const { expression, related_to } = state;
     const times = state.times > 0 ? state.times : 1;
-    const url = `http://localhost:5000/derivate`;
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-origin": "*",
-        },
-        body: JSON.stringify({
-          expression,
-          related_to,
-          times,
-        }),
+      const response = await api.post("derivate", {
+        expression,
+        related_to,
+        times,
       });
       const data = await response.json();
       if (data.message) {
@@ -95,7 +88,6 @@ function Derivadas() {
               onChange={textChange("times")}
               placeholder='Quantidade de derivações sucessivas(opcional)'
             />
-
             <Button
               type='submit'
               label='Calcular'
