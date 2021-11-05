@@ -38,21 +38,29 @@ function Derivadas() {
       isLoading: true,
       error: "",
     }));
+
+    if (state.isLoading) {
+      return;
+    }
+
     const { expression, related_to } = state;
     const times = state.times > 0 ? state.times : 1;
     try {
       const response = await api.post("derivate", {
-        expression,
-        related_to,
-        times,
+        expression: expression,
+        related_to: related_to,
+        times: times,
       });
-      const data = await response.json();
-      if (data.message) {
-        setState((old) => ({ ...old, error: data.message, isLoading: false }));
+      if (response.data.message) {
+        setState((old) => ({
+          ...old,
+          error: response.data.message,
+          isLoading: false,
+        }));
       }
       setState((old) => ({
         ...old,
-        result: data.result,
+        result: response.data.result,
         isLoading: false,
       }));
     } catch (err) {
