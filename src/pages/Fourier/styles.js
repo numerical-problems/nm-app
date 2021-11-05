@@ -6,7 +6,8 @@ export const Form = styled.form`
     "e e"
     "i1 i2"
     "n n"
-    "b b";
+    "b b"
+    "c c";
 
   & > :nth-child(1) {
     grid-area: e;
@@ -28,6 +29,10 @@ export const Form = styled.form`
 
   & > :nth-child(5) {
     grid-area: b;
+  }
+
+  & > :nth-child(6) {
+    grid-area: c;
   }
 
   @media (max-width: 920px) {

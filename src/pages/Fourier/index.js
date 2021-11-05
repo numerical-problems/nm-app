@@ -1,9 +1,13 @@
 import { useState } from "react";
+import ReactLoading from "react-loading";
 import { Container } from "../../layout/container";
+import { Result, Loading } from "../../layout/result";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
 import { Form } from "./styles";
+import { useTextChange } from "../../hooks/useTextChange";
+import api from "../../services/api";
 
 export default function Fourier() {
   const [state, setState] = useState({
@@ -15,13 +19,7 @@ export default function Fourier() {
     n: "",
     isLoading: false,
   });
-
-  const textChange = (field) => (e) => {
-    setState((old) => ({
-      ...old,
-      [field]: e.target.value,
-    }));
-  };
+  const textChange = useTextChange(setState);
 
   const handleCalculeFourier = async (e) => {
     e.preventDefault();
@@ -30,20 +28,40 @@ export default function Fourier() {
     if (state.isLoading) {
       return;
     }
+
     try {
-      // axios resquest;
+      const response = await api.post("/fourier", {
+        first_interval: Number(state.interval1),
+        second_interval: Number(state.interval2),
+        expression: state.expression,
+        n: Number(state.n),
+      });
       setState((old) => ({
         ...old,
-        result: "x + 1",
+        result: response.data.result,
         isLoading: false,
+        error: "",
       }));
     } catch (err) {
       setState((old) => ({
         ...old,
-        error: "Expressão Inválida",
+        error: "Verifique se os campos foram preenchido corretamente",
         isLoading: false,
+        result: "",
       }));
     }
+  };
+
+  const clearInput = () => {
+    setState((old) => ({
+      ...old,
+      expression: "",
+      interval1: "",
+      interval2: "",
+      result: "",
+      n: "",
+      error: "",
+    }));
   };
 
   return (
@@ -78,10 +96,22 @@ export default function Fourier() {
             />
             <Button type="submit" label="Calcular" />
           </Form>
-          {state.result && (
+          <Button label="Limpar campos" onClick={clearInput} />
+          {state.error !== "" && (
+            <Result>
+              <h3>Ocorreu um erro</h3>
+              <p>{state.error}</p>
+            </Result>
+          )}
+          {state.isLoading && (
+            <Loading>
+              <ReactLoading type="spin" color="black" />
+            </Loading>
+          )}
+          {state.result && !state.isLoading && (
             <>
-              <h3>Resultado</h3>
-              <p>{state.result}</p>
+              <h2>Resultado</h2>
+              <Result>{state.result}</Result>
             </>
           )}
         </div>

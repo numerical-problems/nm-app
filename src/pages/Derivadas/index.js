@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Container } from "../../layout/container";
+import { Result, Loading } from "../../layout/result";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
 import * as C from "./styles";
+import { useTextChange } from "../../hooks/useTextChange";
 import ReactLoading from "react-loading";
 
 function Derivadas() {
@@ -26,13 +28,7 @@ function Derivadas() {
       error: "",
     }));
   };
-
-  const textChange = (field) => (e) => {
-    setState((old) => ({
-      ...old,
-      [field]: e.target.value,
-    }));
-  };
+  const textChange = useTextChange(setState);
 
   const handleDerivation = async (e) => {
     e.preventDefault();
@@ -69,51 +65,51 @@ function Derivadas() {
   };
 
   return (
-    <Page id='derivadas'>
+    <Page id="derivadas">
       <Container>
-        <div className='left'>
+        <div className="left">
           <h3>Derivadas</h3>
-          <C.Form onSubmit={handleDerivation} method='POST'>
+          <C.Form onSubmit={handleDerivation} method="POST">
             <Input
-              name='expression'
+              name="expression"
               value={state.expression}
               onChange={textChange("expression")}
-              placeholder='Expressão: 3*x**5-2*x**3+5-3*x'
+              placeholder="Expressão: 3*x**5-2*x**3+5-3*x"
             />
             <Input
-              name='related_to'
+              name="related_to"
               value={state.related_to}
               onChange={textChange("related_to")}
-              placeholder='Variável relacionada: x,y,z'
+              placeholder="Variável relacionada: x,y,z"
             />
             <Input
-              name='times'
+              name="times"
               value={state.times}
               onChange={textChange("times")}
-              placeholder='Quantidade de derivações sucessivas(opcional)'
+              placeholder="Quantidade de derivações sucessivas(opcional)"
             />
-            <Button type='submit' label='Calcular' />
+            <Button type="submit" label="Calcular" />
           </C.Form>
-          <Button label='Limpar campos' onClick={clearInput} />
+          <Button label="Limpar campos" onClick={clearInput} />
           {state.error !== "" && (
-            <C.Result>
+            <Result>
               <h3>Ocorreu um erro</h3>
               <p>{state.error}</p>
-            </C.Result>
+            </Result>
           )}
           {state.isLoading && (
-            <C.Loading>
-              <ReactLoading type='spin' color='black' />
-            </C.Loading>
+            <Loading>
+              <ReactLoading type="spin" color="black" />
+            </Loading>
           )}
           {state.result && !state.isLoading && (
             <>
               <h2>Resultado</h2>
-              <C.Result>{state.result}</C.Result>
+              <Result>{state.result}</Result>
             </>
           )}
         </div>
-        <div className='right'>
+        <div className="right">
           <h4 style={{ paddingLeft: 20 }}>Orientações</h4>
           <C.List>
             <C.ListItem>
