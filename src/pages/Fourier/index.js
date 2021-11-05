@@ -1,47 +1,50 @@
-import { useState } from 'react'
+import { useState } from "react";
 import { Container } from "../../layout/container";
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import Page from "../../layout/page";
-import { Form } from './styles'
+import { Form } from "./styles";
 
 export default function Fourier() {
   const [state, setState] = useState({
-    expression: '',
-    result: '',
-    error: '',
+    expression: "",
+    interval1: "",
+    interval2: "",
+    result: "",
+    error: "",
+    n: "",
     isLoading: false,
-  })
+  });
 
   const textChange = (field) => (e) => {
     setState((old) => ({
       ...old,
-      [field]: e.target.value
-    }))
-  }
+      [field]: e.target.value,
+    }));
+  };
 
   const handleCalculeFourier = async (e) => {
-    e.preventDefault()
-    setState((old) => ({ ...old, isLoading: true }))
+    e.preventDefault();
+    setState((old) => ({ ...old, isLoading: true }));
 
     if (state.isLoading) {
-      return
+      return;
     }
-    try  {
+    try {
       // axios resquest;
       setState((old) => ({
         ...old,
-        result: 'x + 1',
+        result: "x + 1",
         isLoading: false,
-      }))
+      }));
     } catch (err) {
       setState((old) => ({
         ...old,
-        error: 'Expressão Inválida',
-        isLoading: false
-      }))
+        error: "Expressão Inválida",
+        isLoading: false,
+      }));
     }
-  }
+  };
 
   return (
     <Page id="fourier">
@@ -49,7 +52,30 @@ export default function Fourier() {
         <div className="left">
           <h3>Fourier</h3>
           <Form onSubmit={handleCalculeFourier}>
-            <Input name="expression" value={state.expression} onChange={textChange('expression')} placeholder="Expressão Ex: x + 1" />
+            <Input
+              name="expression"
+              value={state.expression}
+              onChange={textChange("expression")}
+              placeholder="Expressão Ex: x + 1"
+            />
+            <Input
+              name="interval_1"
+              value={state.interval1}
+              onChange={textChange("interval1")}
+              placeholder="Intervalo 1"
+            />
+            <Input
+              name="interval_2"
+              value={state.interval2}
+              onChange={textChange("interval2")}
+              placeholder="Intervalo 2"
+            />
+            <Input
+              name="n"
+              value={state.n}
+              onChange={textChange("n")}
+              placeholder="N Ex: 3"
+            />
             <Button type="submit" label="Calcular" />
           </Form>
           {state.result && (
@@ -58,7 +84,6 @@ export default function Fourier() {
               <p>{state.result}</p>
             </>
           )}
-          
         </div>
         <div className="right">
           <h4>right</h4>
