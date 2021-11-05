@@ -60,7 +60,6 @@ function Derivadas() {
     if (data.message) {
       setState((old) => ({ ...old, error: data.message, isLoading: false }));
     }
-    console.log(state.error);
     setState((old) => ({
       ...old,
       result: data.result,
@@ -95,7 +94,7 @@ function Derivadas() {
             <Button type='submit' label='Calcular' />
           </C.Form>
           <Button label='Limpar campos' onClick={clearInput} />
-          {state.error !== "" && (
+          {state.error !== "" && !state.isLoading && (
             <C.Result>
               <h3>Ocorreu um erro</h3>
               <p>{state.error}</p>
@@ -119,6 +118,12 @@ function Derivadas() {
             <C.ListItem>
               As expressões devem ser escritas desta maneira:
               <span>2*x**5-2*x**3</span>
+            </C.ListItem>
+            <C.ListItem>
+              Para utilizar raiz quadrada, utilize <span>sqrt</span>
+            </C.ListItem>
+            <C.ListItem>
+              Para utilizar logaritmo natural, utilize <span>ln</span>
             </C.ListItem>
             <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
