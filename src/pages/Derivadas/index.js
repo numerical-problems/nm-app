@@ -40,27 +40,35 @@ function Derivadas() {
     const { expression, related_to } = state;
     const times = state.times > 0 ? state.times : 1;
     const url = `http://localhost:5000/derivate`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-origin": "*",
-      },
-      body: JSON.stringify({
-        expression,
-        related_to,
-        times,
-      }),
-    });
-    const data = await response.json();
-    if (data.message) {
-      setState((old) => ({ ...old, error: data.message, isLoading: false }));
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "access-control-allow-origin": "*",
+        },
+        body: JSON.stringify({
+          expression,
+          related_to,
+          times,
+        }),
+      });
+      const data = await response.json();
+      if (data.message) {
+        setState((old) => ({ ...old, error: data.message, isLoading: false }));
+      }
+      setState((old) => ({
+        ...old,
+        result: data.result,
+        isLoading: false,
+      }));
+    } catch (err) {
+      setState((old) => ({
+        ...old,
+        error: "Ocorreu um erro inesperado",
+        isLoading: false,
+      }));
     }
-    setState((old) => ({
-      ...old,
-      result: data.result,
-      isLoading: false,
-    }));
   };
 
   return (
@@ -87,7 +95,13 @@ function Derivadas() {
               onChange={textChange("times")}
               placeholder='Quantidade de derivações sucessivas(opcional)'
             />
-            <Button type='submit' label='Calcular' />
+
+            <Button
+              type='submit'
+              label='Calcular'
+              className={state.expression && state.related_to ? "" : "disabled"}
+              disabled={!state.expression && !state.related_to}
+            />
           </C.Form>
           <Button label='Limpar campos' onClick={clearInput} />
           {state.error !== "" && !state.isLoading && (
