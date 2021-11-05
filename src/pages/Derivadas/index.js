@@ -42,7 +42,6 @@ function Derivadas() {
     if (state.isLoading) {
       return;
     }
-
     const { expression, related_to } = state;
     const times = state.times > 0 ? state.times : 1;
     try {
@@ -51,13 +50,6 @@ function Derivadas() {
         related_to: related_to,
         times: times,
       });
-      if (response.data.message) {
-        setState((old) => ({
-          ...old,
-          error: response.data.message,
-          isLoading: false,
-        }));
-      }
       setState((old) => ({
         ...old,
         result: response.data.result,
@@ -66,7 +58,7 @@ function Derivadas() {
     } catch (err) {
       setState((old) => ({
         ...old,
-        error: "Ocorreu um erro inesperado",
+        error: "Verifique se os campos foram preenchidos corretamente",
         isLoading: false,
       }));
     }
@@ -100,7 +92,7 @@ function Derivadas() {
               type='submit'
               label='Calcular'
               className={state.expression && state.related_to ? "" : "disabled"}
-              disabled={!state.expression && !state.related_to}
+              disabled={!state.expression || !state.related_to}
             />
           </C.Form>
           <Button label='Limpar campos' onClick={clearInput} />
@@ -115,7 +107,7 @@ function Derivadas() {
               <ReactLoading type='spin' color='black' />
             </Loading>
           )}
-          {state.result && !state.isLoading && (
+          {state.result && !state.isLoading && state.error === "" && (
             <>
               <h2>Resultado</h2>
               <Result>{state.result}</Result>
