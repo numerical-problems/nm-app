@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Page from "../../layout/page";
 import * as C from "./styles";
 import ReactLoading from "react-loading";
+import api from "../../services/api";
 
 function Interpolacao() {
   const [state, setState] = useState({
@@ -37,27 +38,28 @@ function Interpolacao() {
       isLoading: true,
       error: "",
     }));
-    const { expression } = state;
-    const url = `http://localhost:5000/interpolation`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-origin": "*",
-      },
-      body: JSON.stringify({expression}),
-    });
-    const data = await response.json();
-    if (data.message) {
-      setState((old) => ({ ...old, error: data.message, isLoading: false }));
+    if(state.isLoading){
+      return;
     }
-    console.log(state.error);
-    setState((old) => ({
-      ...old,
-      result: data.result,
-      isLoading: false,
-    }));
+    const { expression } = state;
+    try {
+      const response = await api.post("interpolation", {
+        expression: expression
+      });
+      setState((old) => ({
+        ...old,
+        result: response.data.result,
+        isLoading: false
+      }));
+    } catch (err){
+      setState((old) => ({
+        ...old,
+        error: "Ocorreram erros",
+        isLoading: false
+      }));
+    }
   };
+  
 
   return (
     <Page id='interpolacao'>
