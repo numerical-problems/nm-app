@@ -84,7 +84,7 @@ function Integrais() {
     <Page id='integrais'>
       <Container>
         <div className='left'>
-          <h3>Derivadas</h3>
+          <h3>Integrais</h3>
           <C.Form onSubmit={handleIntegration} method='POST'>
             <Input
               name='expression'
