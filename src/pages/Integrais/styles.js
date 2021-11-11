@@ -25,7 +25,7 @@ export const ListItem = styled.li`
 
 export const Result = styled.p`
   font-size: 30px;
-  padding-top: 20px;
+  padding: 40px 0;
 `;
 
 export const Loading = styled.div`

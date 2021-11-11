@@ -127,6 +127,9 @@ function Derivadas() {
               Para utilizar logaritmo natural, utilize <span>ln</span>
             </C.ListItem>
             <C.ListItem>
+              Para utilizar log base 10, utilize <span>log</span>
+            </C.ListItem>
+            <C.ListItem>
               Se o parâmetro de quantidade de derivações não for informado, será
               realizada 1 derivação
             </C.ListItem>
