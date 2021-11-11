@@ -36,4 +36,10 @@ export const menus = [
     icon: <RiNumbersLine size='18' />,
     path: "/fourier",
   },
+  {
+    id: "interpolacao",
+    name: "Interpolacao",
+    icon: <RiNumbersLine size='18' />,
+    path: "/interpolacao",
+  }
 ];
