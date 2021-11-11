@@ -94,9 +94,15 @@ export default function Fourier() {
               onChange={textChange("n")}
               placeholder="N Ex: 3"
             />
-            <Button type="submit" label="Calcular" />
+            <Button type="submit" 
+                    label="Calcular" 
+                    className={state.expression && state.interval1 && state.interval2 && state.n ? "" : "disabled"}
+                    disabled={!state.expression || !state.interval1 || !state.interval2 || !state.n }/>
           </Form>
-          <Button label="Limpar campos" onClick={clearInput} />
+          <Button label="Limpar campos" 
+                  onClick={clearInput}
+                  className={state.expression || state.interval1 || state.interval2 || state.n ? "" : "disabled"}
+          />
           {state.error !== "" && (
             <Result>
               <h3>Ocorreu um erro</h3>

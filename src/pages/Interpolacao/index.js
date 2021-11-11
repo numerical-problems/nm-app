@@ -71,9 +71,16 @@ function Interpolacao() {
               onChange={textChange("expression")}
               placeholder='Expressão: 1,2 ; 2,4 ; 1.7 , 6.4'
             />
-            <Button type='submit' label='Calcular' />
+            <Button type='submit' 
+                    label='Calcular'
+                    className={state.expression ? "" : "disabled"}
+                    disabled={!state.expression}
+            />
           </C.Form>
-          <Button label='Limpar campos' onClick={clearInput} />
+          <Button label='Limpar campos' 
+                  onClick={clearInput}
+                  className={state.expression ? "" : "disabled"}
+          />
           {state.error !== "" && (
             <C.Result>
               <h3>Ocorreu um erro</h3>

@@ -117,7 +117,10 @@ function Integrais() {
               disabled={!state.expression || !state.related_to}
             />
           </C.Form>
-          <Button label='Limpar campos' onClick={clearInput} />
+          <Button label='Limpar campos' 
+                  onClick={clearInput}
+                  className={state.expression || state.related_to || state.limit_superior || state.limit_inferior ? "" : "disabled"}
+          />
           {state.error !== "" && !state.isLoading && (
             <C.Result>
               <h3>Ocorreu um erro</h3>
