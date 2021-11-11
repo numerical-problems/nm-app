@@ -18,6 +18,12 @@ export const menus = [
     icon: <RiNumbersLine size='18' />,
     path: "/derivadas",
   },
+  {
+    id: "integrais",
+    name: "Integrais",
+    icon: <RiNumbersLine size='18' />,
+    path: "/integrais",
+  },
   // {
   //   id: "algebralinear",
   //   name: "Álgebra Linear",

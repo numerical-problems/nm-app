@@ -1,20 +1,5 @@
 import styled from "styled-components";
 
-
-
-export const Title = styled.h1`
-  padding: 10px 20px;
-`;
-
-export const Form = styled.form``;
-
-export const List = styled.ul`
-  box-shadow: 0 0 10px lightgray;
-  background-color: whitesmoke;
-  justify-content: center;
-  padding: 50px 20px;
-`;
-
 export const ListItem = styled.li`
   padding-top: 15px;
   padding-bottom: 15px;
