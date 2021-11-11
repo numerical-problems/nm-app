@@ -3,6 +3,7 @@ import { Switch, Router, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Logaritmos from "../pages/Logaritmos";
 import Derivadas from "../pages/Derivadas";
+import Integrais from "../pages/Integrais";
 import Fourier from "../pages/Fourier";
 import history from "../services/history";
 
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route path='/' exact component={Home} />
         <Route path='/derivadas' component={Derivadas} />
         <Route path='/fourier' component={Fourier} />
+        <Route path='/integrais' component={Integrais} />
       </Switch>
     </Router>
   );

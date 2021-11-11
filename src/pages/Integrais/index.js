@@ -9,30 +9,23 @@ import { useTextChange } from "../../hooks/useTextChange";
 import ReactLoading from "react-loading";
 import api from "../../services/api";
 
-function Derivadas() {
+function Integrais() {
   const [state, setState] = useState({
+    loading: false,
     expression: "",
     related_to: "",
-    times: "",
-    result: "",
+    limit_superior: "",
+    limit_inferior: "",
     error: "",
-    isLoading: false,
   });
 
-  const clearInput = () => {
-    setState((old) => ({
-      ...old,
-      expression: "",
-      related_to: "",
-      times: "",
-      result: "",
-      error: "",
-    }));
-  };
   const textChange = useTextChange(setState);
 
-  const handleDerivation = async (e) => {
+  const handleIntegration = async (e) => {
     e.preventDefault();
+
+    const { expression, related_to, limit_superior, limit_inferior } = state;
+
     setState((old) => ({
       ...old,
       isLoading: true,
@@ -41,20 +34,34 @@ function Derivadas() {
     if (state.isLoading) {
       return;
     }
-    const { expression, related_to } = state;
-    const times = state.times > 0 ? state.times : 1;
+
     try {
-      const response = await api.post("derivate", {
-        expression: expression,
-        related_to: related_to,
-        times: times,
-      });
-      setState((old) => ({
-        ...old,
-        result: response.data.result,
-        isLoading: false,
-      }));
+      if (state.limit_inferior === "" && state.limit_superior === "") {
+        const response = await api.post("/integrals", {
+          expression,
+          related_to,
+        });
+        setState((old) => ({
+          ...old,
+          isLoading: false,
+          result: response.data.result,
+        }));
+      } else {
+        const response = await api.post("/integrals/limits", {
+          expression,
+          related_to,
+          limit_superior,
+          limit_inferior,
+        });
+
+        setState((old) => ({
+          ...old,
+          isLoading: false,
+          result: response.data.result,
+        }));
+      }
     } catch (err) {
+      console.log(err);
       setState((old) => ({
         ...old,
         error: "Ocorreram erros",
@@ -63,17 +70,27 @@ function Derivadas() {
     }
   };
 
+  const clearInput = () => {
+    setState((old) => ({
+      ...old,
+      expression: "",
+      related_to: "",
+      limit_superior: "",
+      limit_inferior: "",
+    }));
+  };
+
   return (
-    <Page id='derivadas'>
+    <Page id='integrais'>
       <Container>
         <div className='left'>
           <h3>Derivadas</h3>
-          <C.Form onSubmit={handleDerivation} method='POST'>
+          <C.Form onSubmit={handleIntegration} method='POST'>
             <Input
               name='expression'
               value={state.expression}
               onChange={textChange("expression")}
-              placeholder='Expressão: 3*x**5-2*x**3+5-3*x'
+              placeholder='Expressão: sin(x)*tan(x)'
             />
             <Input
               name='related_to'
@@ -82,10 +99,16 @@ function Derivadas() {
               placeholder='Variável relacionada: x,y,z'
             />
             <Input
-              name='times'
-              value={state.times}
-              onChange={textChange("times")}
-              placeholder='Quantidade de derivações sucessivas(opcional)'
+              name='limit_superior'
+              value={state.limit_superior}
+              onChange={textChange("limit_superior")}
+              placeholder='Limite superior (opcional)'
+            />
+            <Input
+              name='limit_inferior'
+              value={state.limit_inferior}
+              onChange={textChange("limit_inferior")}
+              placeholder='Limite inferior(opcional)'
             />
             <Button
               type='submit'
@@ -118,7 +141,7 @@ function Derivadas() {
           <C.List>
             <C.ListItem>
               As expressões devem ser escritas desta maneira:
-              <span>2*x**5-2*x**3</span>
+              <span>2*x**5-2*x**3, sin(x)*tan(x)</span>
             </C.ListItem>
             <C.ListItem>
               Para utilizar raiz quadrada, utilize <span>sqrt(expressão)</span>
@@ -146,4 +169,4 @@ function Derivadas() {
   );
 }
 
-export default Derivadas;
+export default Integrais;
