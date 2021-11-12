@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Container } from "../../layout/container";
+import { Result, Loading } from "../../layout/result";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
 import * as C from "./styles";
+import { useTextChange } from "../../hooks/useTextChange";
 import ReactLoading from "react-loading";
 import api from "../../services/api";
 
@@ -24,12 +26,7 @@ function Interpolacao() {
     }));
   };
 
-  const textChange = (field) => (e) => {
-    setState((old) => ({
-      ...old,
-      [field]: e.target.value,
-    }));
-  };
+  const textChange = useTextChange(setState);
 
   const handleInterpolation = async (e) => {
     e.preventDefault();
@@ -44,7 +41,7 @@ function Interpolacao() {
     const { expression } = state;
     try {
       const response = await api.post("interpolation", {
-        expression: expression
+        coordinates: expression
       });
       setState((old) => ({
         ...old,
