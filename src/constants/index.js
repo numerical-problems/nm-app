@@ -41,5 +41,11 @@ export const menus = [
     name: "Interpolacao",
     icon: <RiNumbersLine size='18' />,
     path: "/interpolacao",
+  },
+  {
+    id: "ajusteCurva",
+    name: "AjusteCurva",
+    icon: <RiNumbersLine size='18' />,
+    path: "/ajusteCurva",
   }
 ];
