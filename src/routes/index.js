@@ -6,6 +6,7 @@ import Derivadas from "../pages/Derivadas";
 import Integrais from "../pages/Integrais";
 import Fourier from "../pages/Fourier";
 import Interpolacao from "../pages/Interpolacao";
+import AjusteCurva from "../pages/AjusteCurva";
 import history from "../services/history";
 
 export default function Routes() {
@@ -14,6 +15,7 @@ export default function Routes() {
       <Switch>
         <Route path='/log' component={Logaritmos} />
         <Route path='/' exact component={Home} />
+        <Route path='/ajusteCurva' component={AjusteCurva} />
         <Route path='/derivadas' component={Derivadas} />
         <Route path='/fourier' component={Fourier} />
         <Route path='/interpolacao' component={Interpolacao} />
