@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container } from "../../layout/container";
-import { Result, Loading } from "../../layout/result";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Page from "../../layout/page";
