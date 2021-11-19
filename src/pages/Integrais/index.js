@@ -108,7 +108,7 @@ function Integrais() {
               name='limit_inferior'
               value={state.limit_inferior}
               onChange={textChange("limit_inferior")}
-              placeholder='Limite inferior(opcional)'
+              placeholder='Limite inferior (opcional)'
             />
             <Button
               type='submit'
@@ -117,9 +117,17 @@ function Integrais() {
               disabled={!state.expression || !state.related_to}
             />
           </C.Form>
-          <Button label='Limpar campos' 
-                  onClick={clearInput}
-                  className={state.expression || state.related_to || state.limit_superior || state.limit_inferior ? "" : "disabled"}
+          <Button
+            label='Limpar campos'
+            onClick={clearInput}
+            className={
+              state.expression ||
+              state.related_to ||
+              state.limit_superior ||
+              state.limit_inferior
+                ? ""
+                : "disabled"
+            }
           />
           {state.error !== "" && !state.isLoading && (
             <C.Result>
@@ -150,7 +158,8 @@ function Integrais() {
               Para utilizar raiz quadrada, utilize <span>sqrt(expressão)</span>
             </C.ListItem>
             <C.ListItem>
-              Para utilizar logaritmo natural, utilize <span>ln</span>
+              Para utilizar logaritmo natural, utilize{" "}
+              <span>ln(expressão)</span>
             </C.ListItem>
             <C.ListItem>
               Para utilizar log base 10, utilize <span>log</span>
