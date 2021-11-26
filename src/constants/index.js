@@ -6,12 +6,12 @@ export const menus = [
     icon: <RiHome2Line size='18' />,
     path: "/",
   },
-  {
-    id: "logaritmos",
-    name: "Logaritmos",
-    icon: <RiNumbersLine size='18' />,
-    path: "/log",
-  },
+  // {
+  //   id: "logaritmos",
+  //   name: "Logaritmos",
+  //   icon: <RiNumbersLine size='18' />,
+  //   path: "/log",
+  // },
   {
     id: "derivadas",
     name: "Derivada",
